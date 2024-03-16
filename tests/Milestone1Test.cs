@@ -3,13 +3,8 @@ using StringCalculator;
 namespace tests
 {
     [TestFixture]
-    public class Tests
+    public class Milestone1Test
     {
-        [SetUp]
-        public void Setup()
-        {
-        }
-
         [TestCase("20", 20)]
         [TestCase("1,5000", 5001)]
         [TestCase("4,-3", 1)]
@@ -56,24 +51,6 @@ namespace tests
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));
-        }
-
-        [TestCase("1,2,3")]
-        [TestCase("2,3,")]
-        [TestCase(",,")]
-        [TestCase(",,bwxz,9995,,")]
-        [TestCase(",ab,cd")]
-        [TestCase("a,b,c,d")]
-        public void Should_Throw_Exception_For_More_Than_2_Numbers(string input)
-        {
-            // Arrange
-            Calculator calculator = new Calculator();
-
-            // Act, Assert
-            Assert.Throws<Exception>(() =>
-            {
-                calculator.Add(input);
-            });
         }
     }
 }
