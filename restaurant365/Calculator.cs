@@ -4,11 +4,29 @@ namespace StringCalculator
     {
         public int Add(string input)
         {
-            List<int> numbers = SplitNumbers(input);
+            string[] delimiters;
+            string numbersString;
 
+            (delimiters, numbersString) = GetDelimiters(input);
+            List<int> numbers = SplitNumbers(numbersString, delimiters);
             CheckNegativeNumbes(numbers);
 
             return numbers.FindAll(IsValidNumber).Sum();
+        }
+
+        private (string[], string) GetDelimiters(string input)
+        {
+            string[] delimiters = { ",", "\n" };
+            string numbersString = input;
+
+            if (input.StartsWith("//"))
+            {
+                int newLineIndex = input.IndexOf('\n');
+                string newDelimiter = input.Substring(2, newLineIndex - 2);
+                numbersString = input.Substring(newLineIndex + 1);
+                delimiters = delimiters.Append(newDelimiter).ToArray();
+            }
+            return (delimiters, numbersString);
         }
 
         private bool IsValidNumber(int number)
@@ -18,9 +36,8 @@ namespace StringCalculator
             return true;
         }
 
-        private List<int> SplitNumbers(string input)
+        private List<int> SplitNumbers(string input, string[] delimiters)
         {
-            string[] delimiters = { ",", "\n" };
             List<int> numbers = input.Split(delimiters, new StringSplitOptions())
                                      .Select(n => int.TryParse(n, out int parsed) ? parsed : 0)
                                      .ToList();
