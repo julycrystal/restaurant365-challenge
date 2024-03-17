@@ -22,14 +22,16 @@ namespace StringCalculator
             if (input.StartsWith("//"))
             {
                 int newLineIndex = input.IndexOf('\n');
-                string newDelimiter = input.Substring(2, newLineIndex - 2);
+                string delimitersString = input.Substring(2, newLineIndex - 2);
                 numbersString = input.Substring(newLineIndex + 1);
 
-                if (newDelimiter.StartsWith("[") && newDelimiter.EndsWith("]"))
-                    newDelimiter = newDelimiter.Substring(1, newDelimiter.Length - 2);
+                if (delimitersString.StartsWith("[") && delimitersString.EndsWith("]"))
+                    delimitersString = delimitersString.Substring(1, delimitersString.Length - 2);
 
-                delimiters = delimiters.Append(newDelimiter).ToArray();
+                string[] newDelimiters = delimitersString.Split("][");
+                delimiters = delimiters.Concat(newDelimiters).ToArray();
             }
+
             return (delimiters, numbersString);
         }
 
