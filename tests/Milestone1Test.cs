@@ -6,7 +6,7 @@ namespace tests
     public class Milestone1Test
     {
         [TestCase("20", 20)]
-        [TestCase("1,5000", 5001)]
+        [TestCase("1,5000", 1)]
         [TestCase("4,83", 87)]
         public void Should_Return_Sum(string input, int expected)
         {
@@ -39,7 +39,7 @@ namespace tests
         [TestCase("5,tytyt", 5)]
         [TestCase("xiet,", 0)]
         [TestCase(",nnwwoop", 0)]
-        [TestCase("bwxz,9995", 9995)]
+        [TestCase("bwxz,9995", 0)]
         [TestCase("ab,cd", 0)]
         public void Should_Return_0_For_Invalid_Numbers(string input, int expected)
         {

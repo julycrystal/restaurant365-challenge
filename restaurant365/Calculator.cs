@@ -8,7 +8,14 @@ namespace StringCalculator
 
             CheckNegativeNumbes(numbers);
 
-            return numbers.Sum();
+            return numbers.FindAll(IsValidNumber).Sum();
+        }
+
+        private bool IsValidNumber(int number)
+        {
+            if (number > 1000)
+                return false;
+            return true;
         }
 
         private List<int> SplitNumbers(string input)
