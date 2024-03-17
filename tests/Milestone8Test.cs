@@ -9,11 +9,8 @@ namespace tests
         [TestCase("//[*][*][,][a()][*][()]\n()()a()1***a(),,,,2()()a()3()a(),,()4,,", 10)]
         public void Should_Support_Multiple_Delimiters(string input, int expected)
         {
-            // Arrange
-            Calculator calculator = new Calculator();
-
             // Act
-            int result = calculator.Add(input);
+            int result = Program.Calculate(input);
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));

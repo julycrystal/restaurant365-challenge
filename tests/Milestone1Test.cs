@@ -10,11 +10,8 @@ namespace tests
         [TestCase("4,83", 87)]
         public void Should_Return_Sum(string input, int expected)
         {
-            // Arrange
-            Calculator calculator = new Calculator();
-
             // Act
-            int result = calculator.Add(input);
+            int result = Program.Calculate(input);
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));
@@ -26,11 +23,8 @@ namespace tests
         [TestCase(",", 0)]
         public void Should_Return_0_For_Empty_Values(string input, int expected)
         {
-            // Arrange
-            Calculator calculator = new Calculator();
-
             // Act
-            int result = calculator.Add(input);
+            int result = Program.Calculate(input);
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));
@@ -43,11 +37,8 @@ namespace tests
         [TestCase("ab,cd", 0)]
         public void Should_Return_0_For_Invalid_Numbers(string input, int expected)
         {
-            // Arrange
-            Calculator calculator = new Calculator();
-
             // Act
-            int result = calculator.Add(input);
+            int result = Program.Calculate(input);
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));

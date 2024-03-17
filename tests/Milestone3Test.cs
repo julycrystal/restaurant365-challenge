@@ -10,11 +10,8 @@ namespace tests
         [TestCase("34,635\n,\n23\n5", 697)]
         public void Should_Use_Newline_By_Alternative_Delimeter(string input, int expected)
         {
-            // Arrange
-            Calculator calculator = new Calculator();
-
             // Act
-            int result = calculator.Add(input);
+            int result = Program.Calculate(input);
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));

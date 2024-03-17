@@ -2,37 +2,12 @@ namespace StringCalculator
 {
     public class Calculator
     {
-        public int Add(string input)
+        public int Calculate(Equation equation)
         {
-            string[] delimiters;
-            string numbersString;
+            var (operands, operators) = equation.GetEquation();
+            CheckNegativeNumbes(operands);
 
-            (delimiters, numbersString) = GetDelimiters(input);
-            int[] numbers = SplitNumbers(numbersString, delimiters);
-            CheckNegativeNumbes(numbers);
-
-            return numbers.Where(IsValidNumber).Sum();
-        }
-
-        private (string[], string) GetDelimiters(string input)
-        {
-            string[] delimiters = { ",", "\n" };
-            string numbersString = input;
-
-            if (input.StartsWith("//"))
-            {
-                int newLineIndex = input.IndexOf('\n');
-                string delimitersString = input.Substring(2, newLineIndex - 2);
-                numbersString = input.Substring(newLineIndex + 1);
-
-                if (delimitersString.StartsWith("[") && delimitersString.EndsWith("]"))
-                    delimitersString = delimitersString.Substring(1, delimitersString.Length - 2);
-
-                string[] newDelimiters = delimitersString.Split("][");
-                delimiters = delimiters.Concat(newDelimiters).ToArray();
-            }
-
-            return (delimiters, numbersString);
+            return operands.Where(IsValidNumber).Sum();
         }
 
         private bool IsValidNumber(int number)
@@ -40,15 +15,6 @@ namespace StringCalculator
             if (number > 1000)
                 return false;
             return true;
-        }
-
-        private int[] SplitNumbers(string input, string[] delimiters)
-        {
-            int[] numbers = input.Split(delimiters, new StringSplitOptions())
-                                 .Select(n => int.TryParse(n, out int parsed) ? parsed : 0)
-                                 .ToArray();
-
-            return numbers;
         }
 
         private void CheckNegativeNumbes(int[] numbers)

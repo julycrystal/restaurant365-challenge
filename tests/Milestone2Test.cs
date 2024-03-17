@@ -11,11 +11,8 @@ namespace tests
         [TestCase("x,6,y,6,,e,,z,bow,,,owt,,7", 19)]
         public void Should_Not_Throw_Exception_For_More_Than_2_Numbers(string input, int expected)
         {
-            // Arrange
-            Calculator calculator = new Calculator();
-
             // Act
-            int result = calculator.Add(input);
+            int result = Program.Calculate(input);
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));
