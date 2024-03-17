@@ -8,10 +8,10 @@ namespace StringCalculator
             string numbersString;
 
             (delimiters, numbersString) = GetDelimiters(input);
-            List<int> numbers = SplitNumbers(numbersString, delimiters);
+            int[] numbers = SplitNumbers(numbersString, delimiters);
             CheckNegativeNumbes(numbers);
 
-            return numbers.FindAll(IsValidNumber).Sum();
+            return numbers.Where(IsValidNumber).Sum();
         }
 
         private (string[], string) GetDelimiters(string input)
@@ -42,20 +42,20 @@ namespace StringCalculator
             return true;
         }
 
-        private List<int> SplitNumbers(string input, string[] delimiters)
+        private int[] SplitNumbers(string input, string[] delimiters)
         {
-            List<int> numbers = input.Split(delimiters, new StringSplitOptions())
-                                     .Select(n => int.TryParse(n, out int parsed) ? parsed : 0)
-                                     .ToList();
+            int[] numbers = input.Split(delimiters, new StringSplitOptions())
+                                 .Select(n => int.TryParse(n, out int parsed) ? parsed : 0)
+                                 .ToArray();
 
             return numbers;
         }
 
-        private void CheckNegativeNumbes(List<int> numbers)
+        private void CheckNegativeNumbes(int[] numbers)
         {
-            List<int> negativeNumbers = numbers.FindAll(x => x < 0);
+            int[] negativeNumbers = numbers.Where(x => x < 0).ToArray();
 
-            if (negativeNumbers.Count > 0)
+            if (negativeNumbers.Length > 0)
             {
                 string errorMessage = string.Join(", ", negativeNumbers);
                 throw new Exception(errorMessage);
