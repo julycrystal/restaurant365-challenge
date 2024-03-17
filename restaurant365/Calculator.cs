@@ -24,6 +24,10 @@ namespace StringCalculator
                 int newLineIndex = input.IndexOf('\n');
                 string newDelimiter = input.Substring(2, newLineIndex - 2);
                 numbersString = input.Substring(newLineIndex + 1);
+
+                if (newDelimiter.StartsWith("[") && newDelimiter.EndsWith("]"))
+                    newDelimiter = newDelimiter.Substring(1, newDelimiter.Length - 2);
+
                 delimiters = delimiters.Append(newDelimiter).ToArray();
             }
             return (delimiters, numbersString);
