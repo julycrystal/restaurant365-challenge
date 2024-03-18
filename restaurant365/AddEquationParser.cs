@@ -2,17 +2,20 @@ namespace StringCalculator
 {
     class AddEquationParser : IEquationParser
     {
-        private string input = "";
+        private string? input;
 
-        public void SetEquation(string input)
+        public void SetEquationString(string input)
         {
             this.input = input;
         }
 
         public Equation Parse()
         {
+            if (input == null)
+                throw new Exception("Need equation string before parsing");
+
             Equation equation = new Equation();
-            var (delimiters, numbersPart) = GetDelimiters();
+            var (delimiters, numbersPart) = GetDelimiters(input);
             int[] operands = SplitNumbers(delimiters, numbersPart);
             int operatorCount = operands.Length - 1;
             Operator[] operators = Array.ConvertAll(new int[operatorCount], i => Operator.Add);
@@ -21,7 +24,7 @@ namespace StringCalculator
             return equation;
         }
 
-        private (string[], string) GetDelimiters()
+        private static (string[], string) GetDelimiters(string input)
         {
             string[] delimiters = { ",", "\n" };
             string numbersString = input;
@@ -42,7 +45,7 @@ namespace StringCalculator
             return (delimiters, numbersString);
         }
 
-        private int[] SplitNumbers(string[] delimiters, string input)
+        private static int[] SplitNumbers(string[] delimiters, string input)
         {
             int[] numbers = input.Split(delimiters, new StringSplitOptions())
                                  .Select(n => int.TryParse(n, out int parsed) ? parsed : 0)

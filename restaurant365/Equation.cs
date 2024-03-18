@@ -2,8 +2,8 @@ namespace StringCalculator
 {
     public class Equation
     {
-        private int[] operands = {};
-        private Operator[] operators = {};
+        private int[] operands = Array.Empty<int>();
+        private Operator[] operators = Array.Empty<Operator>();
 
         public void SetEquation(int[] operands, Operator[] operators)
         {

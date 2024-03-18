@@ -5,13 +5,13 @@
         public static int Calculate(string input)
         {
             Calculator calculator = new Calculator();
-            AddEquationParser parser = new AddEquationParser();
-            parser.SetEquation(input);
-            Equation equation = parser.Parse();
-            int result = calculator.Calculate(equation);
+            calculator.SetEquationString(input);
+            calculator.SetParser(new AddEquationParser());
+            int result = calculator.Calculate();
 
             return result;
         }
+
         static void Main(string[] args)
         {
             while (true)

@@ -1,8 +1,8 @@
 namespace StringCalculator
 {
-    interface IEquationParser
+    public interface IEquationParser
     {
-        public abstract void SetEquation(string input);
+        public abstract void SetEquationString(string input);
         public abstract Equation Parse();
     }
 }
